@@ -18,7 +18,7 @@ def dif(ma12, ma26): # dif function
 ma_list = [12, 26] # define ma days
 stock_list = [2330, 2317, 2412, 1301, 1303, 1326, 2454, 2308, 2882, 2881] # define top10
 stock_data = pd.read_csv('D://Log/raw_data.csv', parse_dates=[0]) # read data
-stock_data = pd.DataFrame(stock_data, columns = ['Date','2330','2317','2412','1301','1303','1326','2454','2308','2882','2881'])
+stock_data = pd.DataFrame(stock_data)
 for i in range(len(stock_list)):
     # calculate ma
     for ma in ma_list:
@@ -32,15 +32,15 @@ for i in range(len(stock_list)):
     # determine when to buy or sell
     for j in range(len(stock_data.index)):
         if(res[j] > stock_data['MACD_' + str(stock_list[i])][j]):
-            stock_data = stock_data.set_value(j, 'new_' + str(stock_list[i]), 1)
+            stock_data = stock_data.set_value(j, 'buff_' + str(stock_list[i]), 1)
         else:
-            stock_data = stock_data.set_value(j, 'new_' + str(stock_list[i]), 0)
+            stock_data = stock_data.set_value(j, 'buff_' + str(stock_list[i]), 0)
     for j in range(len(stock_data.index)):
         if(j+1 < len(stock_data.index)): # exclude last data
-            if(stock_data['new_' + str(stock_list[i])][j] > stock_data['new_' + str(stock_list[i])][j+1]):
+            if(stock_data['buff_' + str(stock_list[i])][j] > stock_data['buff_' + str(stock_list[i])][j+1]):
                 # sell
                 stock_data = stock_data.set_value(j, 'decision_' + str(stock_list[i]), 'sell')
-            if(stock_data['new_' + str(stock_list[i])][j] < stock_data['new_' + str(stock_list[i])][j+1]):
+            if(stock_data['buff_' + str(stock_list[i])][j] < stock_data['buff_' + str(stock_list[i])][j+1]):
                 # buy
                 stock_data = stock_data.set_value(j, 'decision_' + str(stock_list[i]), 'buy')
 stock_data.sort_values('Date', ascending=True, inplace=True)
