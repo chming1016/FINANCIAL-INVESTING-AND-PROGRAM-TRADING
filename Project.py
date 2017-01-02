@@ -15,8 +15,7 @@ def draw(input,input2):
     plt.show()
 def dif(ma12, ma26): # dif function
     return ma12 - ma26
-a = []
-ma_list = [12,26] # define ma days
+ma_list = [12, 26] # define ma days
 stock_list = [2330, 2317, 2412, 1301, 1303, 1326, 2454, 2308, 2882, 2881] # define top10
 stock_data = pd.read_csv('D://Log/raw_data.csv', parse_dates=[0]) # read data
 stock_data = pd.DataFrame(stock_data, columns = ['Date','2330','2317','2412','1301','1303','1326','2454','2308','2882','2881'])
@@ -45,7 +44,7 @@ for i in range(len(stock_list)):
                 # buy
                 stock_data = stock_data.set_value(j, 'decision_' + str(stock_list[i]), 'buy')
 stock_data.sort_values('Date', ascending=True, inplace=True)
-#output file
+# output file
 stock_data.to_csv('D://Log/output.csv', index=False)
 #for i in range(len(stock_list)):
 #    draw(stock_list[i])
