@@ -6,19 +6,19 @@ Created on Sat Dec 31 11:44:08 2016
 """
 import pandas as pd
 import matplotlib.pyplot as plt
-def draw(input,input2):
-    plt.plot(stock_data['Date'], stock_data[str(input2)],'b')
-    plt.plot(stock_data['Date'], stock_data[str(input)],'r')
+def draw(input1,input2):
+    plt.plot(stock_data['Date'], stock_data['MACD_' + str(input2)],'b')
+    plt.plot(stock_data['Date'], stock_data[str(input1)],'r')
     plt.xlabel("Date") 
     plt.ylabel("Value") 
-    plt.title(str(input)+str(input2))
+    plt.title(str(input1)+''+str(input2))
     plt.show()
 def dif(ma12, ma26): # dif function
     return ma12 - ma26
 ma_list = [12, 26] # define ma days
 stock_list = [2330, 2317, 2412, 1301, 1303, 1326, 2454, 2308, 2882, 2881] # define top10
 stock_data = pd.read_csv('D://Log/raw_data.csv', parse_dates=[0]) # read data
-stock_data = pd.DataFrame(stock_data)
+#stock_data = pd.DataFrame(stock_data)
 for i in range(len(stock_list)):
     # calculate ma
     for ma in ma_list:
@@ -46,5 +46,5 @@ for i in range(len(stock_list)):
 stock_data.sort_values('Date', ascending=True, inplace=True)
 # output file
 stock_data.to_csv('D://Log/output.csv', index=False)
-#for i in range(len(stock_list)):
-#    draw(stock_list[i])
+for i in range(len(stock_list)):
+    draw(stock_list[i], stock_list[i])
