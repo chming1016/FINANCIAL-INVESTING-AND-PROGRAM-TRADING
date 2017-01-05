@@ -17,19 +17,20 @@ def draw(input2): # draw function
     plt.ylabel("Value") 
     plt.title(str(input2))
     plt.show()
-def max_min(stock_list): # history max min function
-    for i in range(len(stock_list)):
+def max_min(input2): # history max min function
+    for i in range(len(input2)):
         max = -1
         min = 9999
         for j in range(len(stock_data.index)):
-            if(stock_data[str(stock_list[i])][j] > max):
-                max = stock_data[str(stock_list[i])][j]
+            if(stock_data[str(input2[i])][j] > max):
+                max = stock_data[str(input2[i])][j]
             if(stock_data[str(stock_list[i])][j] < min):
-                min = stock_data[str(stock_list[i])][j]
+                min = stock_data[str(input2[i])][j]
         #print(max, min)
 def dif(ma12, ma26): # dif function
     return ma12 - ma26
 def strategy(input2):
+    stock_data = pd.read_csv('D://Log/output.csv', parse_dates=[0])
     text_file = open("D://Log/output.txt", "w")
     for i in range(len(input2)):
         buy = [] # buy list
@@ -41,13 +42,18 @@ def strategy(input2):
         count = 0 # win counter
         for j in range(len(stock_data.index)): # buy sell determine
             if(stock_data['signal_' + str(input2[i])][j]=='sell') and (lock == 1):
+                stock_data = stock_data.set_value(j, 'real_' + str(stock_list[i]), 'sell')
                 money[i] += stock_data[str(input2[i])][j]
                 sell.append(stock_data[str(input2[i])][j])
             if(stock_data['signal_' + str(input2[i])][j]=='buy'):
+                stock_data = stock_data.set_value(j, 'real_' + str(stock_list[i]), 'buy')
                 money[i] -= stock_data[str(input2[i])][j]
                 buy.append(stock_data[str(input2[i])][j])
                 lock = 1
-        for j in range(len(buy)): # calculate each return
+        if(len(sell) < len(buy)): # last day sell it
+            sell.append(stock_data.at[len(stock_data.index)-1, str(input2[i])])
+            stock_data = stock_data.set_value(len(stock_data.index)-1, 'real_' + str(input2[i]), 'sell')
+        for j in range(len(sell)): # calculate each return
             AR += (sell[j]-buy[j])
             if(sell[j]-buy[j] > max):
                 max = (sell[j]-buy[j])
@@ -58,6 +64,8 @@ def strategy(input2):
         text_file.write(str(input2[i])+'\tcount: '+str(len(buy))+'\tCR: '+str('{:.3f}'.format((money[i]-10000)/10000*100))+'\tAR: '+str('{:.2f}'.format(AR/len(buy)*100))+'%\tMaxR: '+str('{:.2f}'.format(max))+'%\tminR: '+str(min)+'%\twin: '+str('{:.2f}'.format(count/len(buy)*100)+'%\n'))
         #print(str(input2[i])+' count: '+str(len(buy))+' CR: '+str('{:.3f}'.format((money[i]-10000)/10000*100))+' AR: '+str('{:.2f}'.format(AR/len(buy)*100))+'% MaxR: '+str('{:.2f}'.format(max))+'% minR: '+str(min)+'% win: '+str('{:.2f}'.format(count/len(buy)*100)+'%'))
     text_file.close()
+    stock_data.to_csv('D://Log/output3.csv', index=False)
+stock_data.sort_values('Date', ascending=True, inplace=True)
 for i in range(len(stock_list)):
     # calculate ma
     for ma in ma_list:
@@ -78,20 +86,19 @@ for i in range(len(stock_list)):
     for j in range(len(stock_data.index)):
         if(j+1 < len(stock_data.index)): # exclude last data
             if(stock_data['buff_' + str(stock_list[i])][j] > stock_data['buff_' + str(stock_list[i])][j+1]):
-                # buy signal
-                stock_data = stock_data.set_value(j, 'signal_' + str(stock_list[i]), 'buy')
-            if(stock_data['buff_' + str(stock_list[i])][j] < stock_data['buff_' + str(stock_list[i])][j+1]):
                 # sell signal
                 stock_data = stock_data.set_value(j, 'signal_' + str(stock_list[i]), 'sell')
-stock_data.sort_values('Date', ascending=True, inplace=True)
+            if(stock_data['buff_' + str(stock_list[i])][j] < stock_data['buff_' + str(stock_list[i])][j+1]):
+                # buy signal
+                stock_data = stock_data.set_value(j, 'signal_' + str(stock_list[i]), 'buy')
+#stock_data.sort_values('Date', ascending=True, inplace=True)
 # output file
 stock_data.to_csv('D://Log/output.csv', index=False)
-stock_data = pd.read_csv('D://Log/output.csv', parse_dates=[0])
 #for i in range(len(stock_list)):
 #    draw(stock_list[i], stock_list[i])
 strategy(stock_list)
 # history max min value
-#max_min(stock_list)
+max_min(stock_list)
 # draw picture
 #for i in range(len(stock_list)):
 #    draw(stock_list[i])
