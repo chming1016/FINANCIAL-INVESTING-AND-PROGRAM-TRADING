@@ -17,6 +17,7 @@ def draw(): # draw function
     plt.xlabel('Years') 
     plt.ylabel('Money') 
     plt.title('Total')
+    plt.savefig('total.png')
     plt.show()
 def crawler(): # crawl yahoo source
     start = datetime.datetime(2011,11,16) # start time
