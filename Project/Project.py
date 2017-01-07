@@ -62,7 +62,6 @@ for i in range(len(stock_list)):
             stock_data = stock_data.set_value(j, 'buff_' + str(stock_list[i]), 0)
     for j in range(len(stock_data.index)):
         # money remain
-        df2.set_value(j, 'money_' + str(stock_list[i]), money[i])
         stock_data.set_value(j, 'money_' + str(stock_list[i]), money[i])
         if(j+1 < len(stock_data.index)): # exclude last data
             if(stock_data['buff_' + str(stock_list[i])][j] > stock_data['buff_' + str(stock_list[i])][j+1]) and (lock == 1):
