@@ -1,0 +1,10 @@
+2330	count: 52	CR: 1.540%	AR: 0.2964%	MaxR: 12.94%	minR: -9.07%	win: 48.08%
+2317	count: 46	CR: 2.053%	AR: 0.5413%	MaxR: 11.68%	minR: -11.08%	win: 54.35%
+2412	count: 43	CR: -0.210%	AR: -0.0236%	MaxR: 5.09%	minR: -4.19%	win: 44.19%
+1301	count: 53	CR: -2.450%	AR: -0.5920%	MaxR: 10.64%	minR: -7.89%	win: 35.85%
+1303	count: 45	CR: 1.570%	AR: 0.6835%	MaxR: 16.76%	minR: -9.75%	win: 48.89%
+1326	count: 46	CR: 1.320%	AR: 0.4514%	MaxR: 12.35%	minR: -7.48%	win: 47.83%
+2454	count: 51	CR: 4.400%	AR: 0.1918%	MaxR: 24.40%	minR: -16.55%	win: 41.18%
+2308	count: 57	CR: -5.172%	AR: -0.2971%	MaxR: 12.39%	minR: -7.83%	win: 38.60%
+2882	count: 44	CR: 0.564%	AR: 0.5543%	MaxR: 17.97%	minR: -10.96%	win: 54.55%
+2881	count: 47	CR: -1.245%	AR: -0.3473%	MaxR: 14.32%	minR: -26.50%	win: 42.55%
