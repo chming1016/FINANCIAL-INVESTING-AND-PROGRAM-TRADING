@@ -3,7 +3,8 @@
 Created on Sat Dec 31 11:44:08 2016
 @author: MING
 @email: chming1016@gmail.com
-@
+@IDE: Spyder
+@Python 3.5
 """
 import pandas as pd
 import pandas.io.data as web
@@ -89,7 +90,6 @@ for i in range(len(stock_list)):
             min = R[j]
         if(R[j] > 0): # account win time
             count += 1         
-    #print(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-1000000)/1000000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
     text_file.write(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-100000)/100000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
 # account total value for each day
 for j in range(len(stock_data.index)):
