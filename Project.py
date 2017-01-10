@@ -11,9 +11,10 @@ ma_list = [12, 26] # define ma days
 stock_list = [2330, 2317, 2412, 1301, 1303, 1326, 2454, 2308, 2882, 2881] # define top10
 money = [] # initial money 1000000 for each stocks
 for i in range(len(stock_list)):
-    money.append(1000000)
+    money.append(100000)
 def draw(): # draw function
     plt.plot(stock_data['Date'], stock_data['total'])
+    plt.grid(True)
     plt.xlabel('Years') 
     plt.ylabel('Money') 
     plt.title('Total')
@@ -44,7 +45,7 @@ for i in range(len(stock_list)):
     max = -1 # initial max value
     min = 9999 # initial min value
     count = 0 # win counter
-    nCR = 0 # n R of culmulative return
+    nCR = 0 # n R of cumulative return
     # calculate ma
     for ma in ma_list:
         stock_data['MA' + str(ma) + '_' + str(stock_list[i])] = pd.rolling_mean(stock_data[str(stock_list[i])], ma)
@@ -77,7 +78,7 @@ for i in range(len(stock_list)):
                 buy.append((stock_data[str(stock_list[i])][j+1])*1000) # each buy value
                 lock = 1 # buy first then you can sell
             # account each R value
-            nR = (money[i]-1000000)/1000000
+            nR = (money[i]-100000)/100000
             if(len(sell) == len(buy)) and (len(sell)!=0):
                 stock_data = stock_data.set_value(j+1, 'nR_' + str(stock_list[i]), nR)
             # account each stock value at that day
@@ -100,7 +101,7 @@ for i in range(len(stock_list)):
         if(R[j] > 0): # account win time
             count += 1         
     #print(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-1000000)/1000000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
-    text_file.write(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-1000000)/1000000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
+    text_file.write(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-100000)/100000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
 # account total value for each day
 for j in range(len(stock_data.index)):
     total = 0

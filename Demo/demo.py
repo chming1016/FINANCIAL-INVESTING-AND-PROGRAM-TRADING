@@ -2,6 +2,8 @@
 """
 Created on Sat Dec 31 11:44:08 2016
 @author: MING
+@email: chming1016@gmail.com
+@
 """
 import pandas as pd
 import pandas.io.data as web
@@ -11,7 +13,7 @@ ma_list = [12, 26] # define ma days
 stock_list = [2330, 2317, 2412, 1301, 1303, 1326, 2454, 2308, 2882, 2881] # define top10
 money = [] # initial money 1000000 for each stocks
 for i in range(len(stock_list)):
-    money.append(1000000)
+    money.append(100000)
 def draw(): # draw function
     plt.plot(stock_data['Date'], stock_data['total'])
     plt.xlabel('Years') 
@@ -88,7 +90,7 @@ for i in range(len(stock_list)):
         if(R[j] > 0): # account win time
             count += 1         
     #print(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-1000000)/1000000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
-    text_file.write(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-1000000)/1000000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
+    text_file.write(str(stock_list[i])+'\tcount: '+str(len(sell))+'\tCR: '+str('{:.3f}'.format(((money[i]-100000)/100000)*100))+'%\tAR: '+str('{:.4f}'.format(((AR/len(sell))*100)))+'%\tMaxR: '+str('{:.2f}'.format((max)*100))+'%\tminR: '+str('{:.2f}'.format((min)*100))+'%\twin: '+str('{:.2f}'.format(count/len(sell)*100)+'%\n'))
 # account total value for each day
 for j in range(len(stock_data.index)):
     total = 0
